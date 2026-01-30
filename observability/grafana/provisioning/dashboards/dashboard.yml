@@ -1,0 +1,11 @@
+apiVersion: 1
+
+dashboards:
+  - name: Operational Radar
+    orgId: 1
+    folder: "Operational Radar"
+    type: file
+    disableDeletion: true
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards
