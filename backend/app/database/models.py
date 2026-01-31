@@ -9,8 +9,8 @@ Base = declarative_base()
 class Metric(Base):
     __tablename__ = "metrics"
 
-    id = Column(Integer, primary_key=True, index=True)
-    timestamp = Column(DateTime, index=True, nullable=False)
+    id = Column(Integer, primary_key=True)
+    timestamp = Column(DateTime, primary_key=True, index=True, nullable=False)
     source = Column(String(50), index=True, nullable=False)
     metric_name = Column(String(100), index=True, nullable=False)
     value = Column(Float, nullable=False)
@@ -21,8 +21,8 @@ class Metric(Base):
 class Anomaly(Base):
     __tablename__ = "anomalies"
 
-    id = Column(Integer, primary_key=True, index=True)
-    timestamp = Column(DateTime, index=True, nullable=False)
+    id = Column(Integer, primary_key=True)
+    timestamp = Column(DateTime, primary_key=True, index=True, nullable=False)
     source = Column(String(50), index=True, nullable=False)
     metric_name = Column(String(100), index=True, nullable=False)
     value = Column(Float, nullable=False)

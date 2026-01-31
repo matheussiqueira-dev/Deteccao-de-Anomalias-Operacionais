@@ -30,6 +30,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+if settings.metrics_enabled:
+    Instrumentator().instrument(app).expose(app, include_in_schema=False)
+
 app.include_router(routes_auth.router)
 app.include_router(routes_metrics.router)
 app.include_router(routes_anomalies.router)
@@ -49,8 +52,6 @@ async def on_startup() -> None:
     )
     app.state.kafka_ingestor = KafkaIngestor(app.state.ingestion_service)
     app.state.kafka_task = asyncio.create_task(app.state.kafka_ingestor.start())
-    if settings.metrics_enabled:
-        Instrumentator().instrument(app).expose(app, include_in_schema=False)
 
 
 @app.on_event("shutdown")

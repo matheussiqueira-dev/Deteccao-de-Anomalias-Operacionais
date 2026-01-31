@@ -33,6 +33,7 @@ class AnomalyOut(BaseModel):
     threshold: float = Field(ge=0.0, le=1.0)
     model_used: str
     status: str
+    model_config = {"protected_namespaces": ()}
 
 
 class InferenceOutput(BaseModel):
@@ -43,6 +44,7 @@ class InferenceOutput(BaseModel):
     threshold: float = Field(ge=0.0, le=1.0)
     model_used: str
     status: str
+    model_config = {"protected_namespaces": ()}
 
 
 class IngestResponse(BaseModel):
