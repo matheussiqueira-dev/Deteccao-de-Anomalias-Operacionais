@@ -2,15 +2,14 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from sqlalchemy.orm import Session
 import structlog
+from sqlalchemy.orm import Session
 
 from app.database import crud
 from app.domain.entities import MetricEvent
+from app.schemas import AnomalyOut, MetricIn
 from app.services.detection import DetectionService
 from app.services.websocket_manager import WebSocketManager
-from app.schemas import MetricIn, AnomalyOut
-
 
 logger = structlog.get_logger(__name__)
 

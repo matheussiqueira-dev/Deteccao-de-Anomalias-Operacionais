@@ -3,8 +3,8 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
 
-from app.database.session import get_db
 from app.database import crud
+from app.database.session import get_db
 from app.schemas import TrainRequest
 
 router = APIRouter(prefix="/train", tags=["train"])
@@ -22,10 +22,14 @@ def retrain(
         source=payload.source,
     )
     if len(values) < 10:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Not enough data to retrain")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Not enough data to retrain"
+        )
     metric_key = f"{payload.source}:{payload.metric_name}"
     detector = request.app.state.detection_service
     if detector is None:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Detector not available")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Detector not available"
+        )
     detector.retrain(metric_key, values)
     return {"status": "ok", "message": "Model retrained"}

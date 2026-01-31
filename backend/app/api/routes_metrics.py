@@ -6,8 +6,8 @@ from typing import List
 from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy.orm import Session
 
-from app.database.session import get_db
 from app.database import crud
+from app.database.session import get_db
 from app.schemas import IngestResponse, MetricIn, MetricOut
 
 router = APIRouter(prefix="/metrics", tags=["metrics"])

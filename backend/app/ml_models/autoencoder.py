@@ -2,12 +2,9 @@ from __future__ import annotations
 
 from collections import deque
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 import numpy as np
-
-if TYPE_CHECKING:
-    import tensorflow as tf
 
 
 @dataclass
@@ -55,7 +52,10 @@ class AutoencoderDetector:
 
         if state.model is None:
             self._try_train(state)
-        elif self.config.retrain_interval > 0 and state.samples_since_train >= self.config.retrain_interval:
+        elif (
+            self.config.retrain_interval > 0
+            and state.samples_since_train >= self.config.retrain_interval
+        ):
             self._try_train(state)
 
         if state.model is None:
@@ -83,7 +83,8 @@ class AutoencoderDetector:
             import tensorflow as tf
         except Exception as exc:
             raise RuntimeError(
-                "TensorFlow is required for AutoencoderDetector. Install backend/requirements-ml.txt"
+                "TensorFlow is required for AutoencoderDetector. "
+                "Install backend/requirements-ml.txt"
             ) from exc
         return tf
 

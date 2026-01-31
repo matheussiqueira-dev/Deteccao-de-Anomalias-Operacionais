@@ -1,12 +1,4 @@
-from fastapi.testclient import TestClient
-
-from app.main import app
-
-
-client = TestClient(app)
-
-
-def test_ingest_metrics():
+def test_ingest_metrics(client):
     payload = {
         "timestamp": "2026-01-30T15:45:12Z",
         "source": "finance",

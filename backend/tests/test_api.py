@@ -1,12 +1,4 @@
-from fastapi.testclient import TestClient
-
-from app.main import app
-
-
-client = TestClient(app)
-
-
-def test_auth_login():
+def test_auth_login(client):
     response = client.post(
         "/auth/login",
         json={"username": "admin", "password": "radar"},
@@ -16,7 +8,7 @@ def test_auth_login():
     assert "access_token" in body
 
 
-def test_metrics_history_empty():
+def test_metrics_history_empty(client):
     response = client.get(
         "/metrics/history",
         params={"metric_name": "delivery_delay_minutes"},
@@ -25,13 +17,13 @@ def test_metrics_history_empty():
     assert isinstance(response.json(), list)
 
 
-def test_latest_anomalies_empty():
+def test_latest_anomalies_empty(client):
     response = client.get("/anomalies/latest")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
 
-def test_train_requires_data():
+def test_train_requires_data(client):
     response = client.post(
         "/train",
         json={"metric_name": "delivery_delay_minutes", "source": "logistics"},
@@ -39,13 +31,13 @@ def test_train_requires_data():
     assert response.status_code in {400, 500}
 
 
-def test_websocket_health():
+def test_websocket_health(client):
     with client.websocket_connect("/ws/health") as websocket:
         websocket.send_text("ping")
         payload = websocket.receive_json()
         assert payload["status"] == "ok"
 
 
-def test_websocket_alerts_connect():
+def test_websocket_alerts_connect(client):
     with client.websocket_connect("/ws/alerts") as websocket:
         websocket.send_text("ping")

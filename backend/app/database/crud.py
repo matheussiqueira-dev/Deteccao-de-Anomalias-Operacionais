@@ -5,7 +5,7 @@ from datetime import datetime
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.database.models import Metric, Anomaly
+from app.database.models import Anomaly, Metric
 
 
 def create_metric(

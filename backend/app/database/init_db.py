@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from sqlalchemy import text
 import structlog
+from sqlalchemy import text
 
-from app.database.session import engine
 from app.database.models import Base
+from app.database.session import engine
 
 logger = structlog.get_logger(__name__)
 

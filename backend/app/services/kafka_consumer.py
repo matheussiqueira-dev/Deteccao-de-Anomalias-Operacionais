@@ -4,8 +4,8 @@ import asyncio
 import json
 from datetime import datetime
 
-from sqlalchemy.orm import Session
 import structlog
+from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.database.session import SessionLocal

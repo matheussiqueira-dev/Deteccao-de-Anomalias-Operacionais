@@ -3,8 +3,8 @@ from __future__ import annotations
 import asyncio
 from typing import Any
 
-from fastapi import WebSocket
 import structlog
+from fastapi import WebSocket
 
 logger = structlog.get_logger(__name__)
 

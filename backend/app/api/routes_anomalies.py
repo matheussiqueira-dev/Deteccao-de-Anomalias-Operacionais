@@ -3,8 +3,8 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy.orm import Session
 
-from app.database.session import get_db
 from app.database import crud
+from app.database.session import get_db
 from app.schemas import AnomalyOut
 
 router = APIRouter(prefix="/anomalies", tags=["anomalies"])
@@ -24,11 +24,13 @@ def latest_anomalies(
             metric_name=a.metric_name,
             value=a.value,
             anomaly_score=a.anomaly_score,
-            threshold=a.threshold
-            if a.threshold is not None
-            else request.app.state.detection_service.get_threshold(
-                f"{a.source}:{a.metric_name}",
-                a.model_used,
+            threshold=(
+                a.threshold
+                if a.threshold is not None
+                else request.app.state.detection_service.get_threshold(
+                    f"{a.source}:{a.metric_name}",
+                    a.model_used,
+                )
             ),
             model_used=a.model_used,
             status="anomaly_detected",
