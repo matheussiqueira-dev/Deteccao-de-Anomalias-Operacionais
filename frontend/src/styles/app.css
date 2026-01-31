@@ -234,6 +234,20 @@ button.ghost {
   cursor: pointer;
 }
 
+button {
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
 .kpi-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -378,6 +392,15 @@ button.ghost {
   transition: opacity 0.2s ease, transform 0.2s ease;
   transform: translateY(6px);
   z-index: 10;
+}
+
+.chart-tooltip strong {
+  color: var(--accent-cyan);
+  font-size: 14px;
+}
+
+.chart-tooltip span {
+  color: var(--accent-amber);
 }
 
 .alert-feed {
